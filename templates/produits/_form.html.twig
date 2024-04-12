@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+{% if produit.photo %}
+    <p>Photo actuelle : <img class="vignette" src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.nom }}"></p>
+{% endif %}
+<button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block body %}
+    <h1>Produits</h1>
+
+    <table class="table">
+            <tbody class="detailProduit">
+            {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ produit.id }}</td>
+
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ produit.nom }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ produit.type }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ produit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ produit.description }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td><img src="{{ produit.photo }}"></td>
+            </tr>
+            {% else %}
+                <tr>
+                    <td><img src="{{ produit.photo }}" alt="photo du produit"></td>
+                </tr>
+                <tr>
+                    <td>{{ produit.nom }}</td>
+                </tr>
+                <tr>
+                    <td>{{ produit.prix }}</td>
+                </tr>
+                <tr>
+                    <td>{{ produit.description }}</td>
+                </tr>
+            {% endif %}
+
+        </tbody>
+
+
+    </table>
+
+    <button class="btn"><a href="{{ path('app_produits_index') }}">Retour à la boutique</a></button>
+    {% if is_granted('ROLE_ADMIN') %}
+        <button class="btn"><a href="{{ path('app_produits_edit', {'id': produit.id}) }}">edit</a></button>
+    {% endif %}
+
+
+    {{ include('produits/_delete_form.html.twig') }}
+{% endblock %}

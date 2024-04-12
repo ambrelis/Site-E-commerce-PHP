@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier index{% endblock %}
+
+{% block body %}
+    <h1>Panier</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for panier in paniers %}
+
+            <tr>
+                <td>{{ panier.produit.nom }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                {% if panier.user %}
+                <td>{{ panier.user.email }}</td>
+                {% else %}
+                    <td>Utilisateur inconnu</td>
+                {% endif %}
+                {% endif %}
+
+                <td>{{ include('panier/_delete_form.html.twig') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('app_panier_new') }}">Create new</a>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {% set currentRoute = app.request.attributes.get('_route') %}
+        {% if currentRoute != 'app_panier_index_admin' %}
+            <td><button class="btn"><a href="{{ path('app_panier_index_admin') }}">Voir tous les paniers</a></button></td>
+        {% endif %}
+
+        {% set currentRoute = app.request.attributes.get('_route') %}
+        {% if currentRoute != 'app_panier_index' %}
+            <td><button class="btn"><a href="{{ path('app_panier_index') }}">Retour</a></button></td>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}
