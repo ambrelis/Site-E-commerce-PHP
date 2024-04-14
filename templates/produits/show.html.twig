@@ -30,11 +30,12 @@
             </tr>
             <tr>
                 <th>Photo</th>
-                <td><img src="{{ produit.photo }}"></td>
+                <th><img class="vignette" src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.nom }}">
+                </th>
             </tr>
             {% else %}
                 <tr>
-                    <td><img src="{{ produit.photo }}" alt="photo du produit"></td>
+                    <td><img class="vignette" src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.nom }}"></td>
                 </tr>
                 <tr>
                     <td>{{ produit.nom }}</td>
