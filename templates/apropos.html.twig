@@ -1,4 +1,39 @@
 {% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+
+
+        .imgapropos {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .titreapropos {
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .papropos {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>{{ titre }}</h1>
+    <h1 class="titreapropos">À propos de nous</h1>
+    <img class="imgapropos" src="{{ asset('uploads/about_us.jpg') }}" alt="À propos de nous">
+    <p class="papropos">Bienvenue sur BeautéParfaite, votre destination pour les meilleurs produits de beauté.</p>
+    <p class="papropos">Nous nous engageons à fournir à nos clients une expérience exceptionnelle et des produits de la plus haute qualité.</p>
+    <p class="papropos">Notre équipe dévouée travaille sans relâche pour vous offrir une sélection soigneusement choisie de produits de beauté, des dernières tendances aux classiques intemporels.</p>
+    <p class="papropos">Nous croyons en la beauté de chaque individu et nous nous efforçons de vous aider à vous sentir confiant et rayonnant dans votre peau.</p>
+    <p class="papropos">Rejoignez-nous dans notre mission pour une beauté parfaite!</p>
 {% endblock %}

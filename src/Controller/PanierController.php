@@ -98,20 +98,20 @@ class PanierController extends AbstractController
         // Obtenez l'utilisateur connecté
         $user = $this->getUser();
 
-        // Créez un nouveau panier associé à l'utilisateur
-        $paniers = new Panier();
-        $paniers->setUser($user);
-        $paniers->setProduit($produit);
+        // Récupérez la quantité à partir de la requête
+        $quantite = $request->request->get('quantity', 1);
 
+        // Créez un nouveau panier associé à l'utilisateur et au produit avec la quantité spécifiée
+        $panier = new Panier();
+        $panier->setUser($user);
+        $panier->setProduit($produit);
+        $panier->setQuantite($quantite);
 
         // Persistez et flush le panier
-        $entityManager->persist($paniers);
+        $entityManager->persist($panier);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_panier_index', [
-            'paniers' => $paniers,
-        ]);
-
-
+        return $this->redirectToRoute('app_panier_index');
     }
+
 }

@@ -8,46 +8,64 @@
     <table class="table">
         <thead>
             <tr>
+                {% if is_granted('ROLE_ADMIN') %}
                 <th>Id</th>
                 <th>actions</th>
+                {% endif %}
+
             </tr>
         </thead>
         <tbody>
+        {% set totalPrice = 0 %}
+        {% set totalQuantity = 0 %} {# Initialisation du compteur de quantité totale #}
         {% for panier in paniers %}
-
             <tr>
                 <td>{{ panier.produit.nom }}</td>
+                <td><img src="{{ panier.produit.photo }}"></td>
+
+                <td>{{ panier.quantite }}</td>
+                <td>{{ panier.produit.prix * panier.quantite }} €</td>
+                {% set totalPrice = totalPrice + (panier.produit.prix * panier.quantite) %}
+                {% set totalQuantity = totalQuantity + panier.quantite %} {# Incrémenter le compteur de quantité totale #}
                 {% if is_granted('ROLE_ADMIN') %}
-                {% if panier.user %}
-                <td>{{ panier.user.email }}</td>
-                {% else %}
-                    <td>Utilisateur inconnu</td>
+                    {% if panier.user %}
+                        <td>{{ panier.user.email }}</td>
+                    {% else %}
+                        <td>Utilisateur inconnu</td>
+                    {% endif %}
                 {% endif %}
+                {% if is_granted('ROLE_USER') %}
+                <td>{{ include('panier/_delete_form.html.twig') }}</td>
                 {% endif %}
 
-                <td>{{ include('panier/_delete_form.html.twig') }}</td>
             </tr>
         {% else %}
             <tr>
                 <td colspan="2">no records found</td>
             </tr>
         {% endfor %}
-
+        <tr>
+            <th>Total</th>
+            <td>{{ totalQuantity }}</td> {# Affichage du nombre total d'articles #}
+            <td>{{ totalPrice }} €</td>
+        </tr>
         </tbody>
+
     </table>
     {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_panier_new') }}">Create new</a>
+    <a href="{{ path('app_panier_new') }}" class="btn">Create new</a>
     {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
         {% set currentRoute = app.request.attributes.get('_route') %}
         {% if currentRoute != 'app_panier_index_admin' %}
-            <td><button class="btn"><a href="{{ path('app_panier_index_admin') }}">Voir tous les paniers</a></button></td>
+            <td><button class="btn btn-primary"><a href="{{ path('app_panier_index_admin') }}">Voir tous les paniers</a></button></td>
+
         {% endif %}
 
         {% set currentRoute = app.request.attributes.get('_route') %}
         {% if currentRoute != 'app_panier_index' %}
-            <td><button class="btn"><a href="{{ path('app_panier_index') }}">Retour</a></button></td>
+            <td><button class="btn btn-primary"><a href="{{ path('app_panier_index') }}">Retour</a></button></td>
         {% endif %}
     {% endif %}
 

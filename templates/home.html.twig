@@ -1,6 +1,83 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <h1>{{ titre }}</h1>
+
+{% block title %}Accueil{% endblock %}
+{% block stylesheets %}
+    <style>
+        /* Style pour la section d'accueil */
+        .accueil-title {
+            text-align: center;
+        }
+
+        .accueil-description {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .accueil-section-title {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .accueil-product {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .accueil-product img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .accueil-product-title {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .accueil-product-description {
+            margin-bottom: 10px;
+        }
+
+        .accueil-product-price {
+            margin-bottom: 10px;
+        }
 
 
+
+    </style>
 {% endblock %}
+
+{% block body %}
+    <h1 class="accueil-title">Bienvenue sur BeautéParfaite</h1>
+    <p class="accueil-description">Découvrez notre sélection exclusive de produits de beauté pour sublimer votre peau et votre style.</p>
+
+    <h2 class="accueil-section-title">Nouveautés</h2>
+    <div class="row accueil-products-row">
+        <div class="col-md-4 accueil-product">
+            <img src="../public/uploads/masque_rehydratant.jpg" alt="Produit 1">
+            <h3 class="accueil-product-title">Masque pro réhydratant </h3>
+            <p class="accueil-product-description">Ce masque, gorgé de Cold Cream Marine, est hautement réparateur. Enrichi d'une Huile de Bourrache micro-encapsulée, il distille ses acides gras (oméga-6) en goutte à goutte au cœur de la peau pour soulager toutes les sensations d'inconfort.</p>
+            <p class="accueil-product-price">Prix: 37.99 €</p>
+            <a href="{{ path('app_produits_index') }}" class="btn btn-primary accueil-product-btn">Voir la boutique</a>
+        </div>
+        <div class="col-md-4 accueil-product">
+
+            <img src="../public/uploads/mousse_nettoyante.jpg" alt="Produit 2">
+            <h3 class="accueil-product-title">Mousse nettoyante</h3>
+            <p class="accueil-product-description">La mousse écume d'eau nettoyante Éveil à la Mer de Thalgo promet de revitaliser, nettoyer en douceur et rafraîchir la peau grâce à son complexe breveté de 3 algues concentré en minéraux et micro-nutriments essentiels à la peau. Celle-ci est purifiée.</p>
+            <p class="accueil-product-price">Prix: 40 €</p>
+            <a href="{{ path('app_produits_index') }}" class="btn btn-primary accueil-product-btn">Voir la boutique</a>
+        </div>
+        <div class="col-md-4 accueil-product">
+            <img src="../public/uploads/creme_hydratante.jpg" alt="Produit 3">
+            <h3 class="accueil-product-title">Creme hydratante</h3>
+            <p class="accueil-product-description">Cette crème fraiche et onctueuse, concentrée en sève bleue des océans et en filtrat d’algues micro-éclatées brevetées est enrichie d’un complexe d'alginate qui hydrate pendant 24H.** Le + produit : disponible en éco-recharge !</p>
+            <p class="accueil-product-price">Prix: 39 €</p>
+            <a href="{{ path('app_produits_index') }}" class="btn btn-primary accueil-product-btn">Voir la boutique</a>
+        </div>
+    </div>
+
+    <h2 class="accueil-section-title">À propos de nous</h2>
+    <p class="accueil-about-description">BeautéParfaite est votre destination ultime pour trouver les meilleurs produits de beauté pour chaque besoin. Notre équipe d'experts sélectionne soigneusement chaque produit pour garantir qualité et satisfaction.</p>
+    <p class="accueil-about-start">Commencez votre voyage vers une beauté parfaite dès aujourd'hui!</p>
+{% endblock %}
+

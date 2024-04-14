@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Comment;
 use App\Entity\produits;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,9 +16,14 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('content')
+            ->add('titre')
             ->add('produits', EntityType::class, [
-                'class' => produits::class,
-                'choice_label' => 'id',
+                'class' => Produits::class,
+                'choice_label' => 'nom',
+            ])
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'email',
             ])
         ;
     }

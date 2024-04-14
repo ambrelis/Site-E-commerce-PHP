@@ -17,11 +17,11 @@ class PanierType extends AbstractType
         $builder
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'email',
             ])
             ->add('produit', EntityType::class, [
                 'class' => Produits::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
             ])
         ;
     }

@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Produits;
 use App\Form\ProduitsType;
+use App\Entity\Panier;
+use App\Repository\MotsClesRepository;
 use App\Repository\ProduitsRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,10 +64,12 @@ class ProduitsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_produits_show', methods: ['GET'])]
-    public function show(Produits $produit): Response
+    public function show(Produits $produit, CommentRepository $commentRepository): Response
     {
         return $this->render('produits/show.html.twig', [
             'produit' => $produit,
+            'comments' => $commentRepository->findAll(),
+
         ]);
     }
 
@@ -112,5 +117,27 @@ class ProduitsController extends AbstractController
         }
 
         return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/search", name="search_products")
+     */
+    public function search(Request $request, ProduitsRepository $produitsRepository): Response
+    {
+        $keyword = $request->query->get('keyword');
+
+        // Vérifie si un mot-clé est entré
+        if ($keyword) {
+            // Recherche les produits correspondant au mot-clé
+            $produits = $produitsRepository->findByKeyword($keyword);
+        } else {
+            // Si aucun mot-clé n'est entré, affiche tous les produits
+            $produits = $produitsRepository->findAll();
+        }
+
+        // Passe les produits à la vue Twig pour l'affichage
+        return $this->render('produits/index.html.twig', [
+            'produits' => $produits,
+        ]);
     }
 }

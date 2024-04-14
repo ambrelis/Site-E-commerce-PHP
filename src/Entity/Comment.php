@@ -20,6 +20,13 @@ class Comment
     #[ORM\ManyToOne]
     private ?produits $produits = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $titre = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +52,30 @@ class Comment
     public function setProduits(?produits $produits): static
     {
         $this->produits = $produits;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): static
+    {
+        $this->titre = $titre;
 
         return $this;
     }
